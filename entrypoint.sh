@@ -39,6 +39,7 @@ upload_bom() {
     echo "[*] BoM file for $bom_file"
     pwd
     ls 
+    cat bom.json
     cat sbom.json
 
     # UPLOAD BoM to Dependency Track server
@@ -114,6 +115,7 @@ python() {
         exit 1
     fi
     pip install cyclonedx-bom
+    freeze=$(pip freeze >requirements.txt)
     cyclonedx-py requirements requirements.txt -o bom.json
     upload_bom "bom.json" "."
 }
