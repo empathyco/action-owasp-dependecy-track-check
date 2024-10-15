@@ -36,6 +36,8 @@ upload_bom() {
     else
         path="-${path}"
     fi
+    ls 
+    pwd
     cat sbom.json
 
     # UPLOAD BoM to Dependency Track server
