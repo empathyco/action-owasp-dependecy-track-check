@@ -36,6 +36,7 @@ upload_bom() {
     else
         path="-${path}"
     fi
+    cat sbom.json
 
     # UPLOAD BoM to Dependency Track server
     echo "[*] Uploading BoM file for $bom_file to Dependency Track server"
