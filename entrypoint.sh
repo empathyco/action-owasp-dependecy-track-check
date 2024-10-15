@@ -21,7 +21,14 @@ upload_bom() {
     path="$2"
     # Cyclonedx CLI conversion
     echo "[*] Cyclonedx CLI conversion for $bom_file"
-    cyclonedx-cli convert --input-file "$bom_file" --output-file sbom.json --output-format json --output-version v1_6
+    # if bom_file = *.json then skip the conversion
+    if [ ${bom_file: -5} == ".json" ]; then
+        echo "[*] Skipping conversion as the BoM file is already in JSON format"
+        cp $bom_file sbom.json
+    else
+        cyclonedx-cli convert --input-file "$bom_file" --output-file sbom.json --output-format json --output-version v1_6
+    fi
+    
 
     # UPLOAD BoM to Dependency Track server
     echo "[*] Uploading BoM file for $bom_file to Dependency Track server"
@@ -96,9 +103,8 @@ python() {
         exit 1
     fi
     pip install cyclonedx-bom
-    path="bom.xml"
-    BoMResult=$(cyclonedx-py requirements -o bom.xml)
-    upload_bom "bom.xml" "."
+    cyclonedx-py requirements -o bom.json
+    upload_bom "bom.json" "."
 }
 
 java
