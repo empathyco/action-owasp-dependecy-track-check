@@ -29,6 +29,13 @@ upload_bom() {
         cyclonedx-cli convert --input-file "$bom_file" --output-file sbom.json --output-format json --output-version v1_6
     fi
     
+    
+    # if path =. then set path to root
+    if [ "$path" = "." ]; then
+        path=""
+    if else [ -z "$path" ]; then
+        path="-${path}"
+    fi
 
     # UPLOAD BoM to Dependency Track server
     echo "[*] Uploading BoM file for $bom_file to Dependency Track server"
@@ -36,7 +43,7 @@ upload_bom() {
         --header "X-Api-Key: $DTRACK_KEY" \
         --header "Content-Type: multipart/form-data" \
         --form "autoCreate=true" \
-        --form "projectName=$GITHUB_REPOSITORY-$path" \
+        --form "projectName=${GITHUB_REPOSITORY}${path}" \
         --form "projectVersion=$GITHUB_REF" \
         --form "bom=@sbom.json")
 
@@ -69,7 +76,7 @@ upload_bom() {
     sleep 5
 
     echo "[*] Retrieving project information for $path"
-    project=$(curl $INSECURE $VERBOSE -s --location --request GET "$DTRACK_URL/api/v1/project/lookup?name=$GITHUB_REPOSITORY-$path&version=$GITHUB_REF" \
+    project=$(curl $INSECURE $VERBOSE -s --location --request GET "$DTRACK_URL/api/v1/project/lookup?name=${GITHUB_REPOSITORY}${path}&version=$GITHUB_REF" \
         --header "X-Api-Key: $DTRACK_KEY")
 
     echo "[*] Project: $project"
