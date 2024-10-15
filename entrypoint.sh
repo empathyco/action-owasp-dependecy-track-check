@@ -36,8 +36,9 @@ upload_bom() {
     else
         path="-${path}"
     fi
-    ls 
+    echo "[*] BoM file for $bom_file"
     pwd
+    ls 
     cat sbom.json
 
     # UPLOAD BoM to Dependency Track server
@@ -107,6 +108,7 @@ java() {
 python() {
     echo "[*]  Processing Python BoM"
     apt-get install --no-install-recommends -y python3 python3-pip
+    freeze=$(pip freeze >requirements.txt)
     if [ ! $? = 0 ]; then
         echo "[-] Error executing pip freeze to get a requirements.txt with frozen parameters. Stopping the action!"
         exit 1
