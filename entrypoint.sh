@@ -33,7 +33,7 @@ upload_bom() {
     # if path =. then set path to root
     if [ "$path" = "." ]; then
         path=""
-    if else [ -z "$path" ]; then
+    else
         path="-${path}"
     fi
 
