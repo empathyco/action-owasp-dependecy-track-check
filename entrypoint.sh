@@ -22,7 +22,7 @@ upload_bom() {
     # Cyclonedx CLI conversion
     echo "[*] Cyclonedx CLI conversion for $bom_file"
     # if bom_file = *.json then skip the conversion
-    if [ ${bom_file: -5} == ".json" ]; then
+    if [[ "$bom_file" == *.json ]]; then
         echo "[*] Skipping conversion as the BoM file is already in JSON format"
         cp $bom_file sbom.json
     else
