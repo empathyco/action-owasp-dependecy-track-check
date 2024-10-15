@@ -114,7 +114,7 @@ python() {
         exit 1
     fi
     pip install cyclonedx-bom
-    cyclonedx-py requirements -o bom.json
+    cyclonedx-py requirements requirements.txt -o bom.json
     upload_bom "bom.json" "."
 }
 
