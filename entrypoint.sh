@@ -107,7 +107,6 @@ java() {
 python() {
     echo "[*]  Processing Python BoM"
     apt-get install --no-install-recommends -y python3 python3-pip
-    freeze=$(pip freeze >requirements.txt)
     if [ ! $? = 0 ]; then
         echo "[-] Error executing pip freeze to get a requirements.txt with frozen parameters. Stopping the action!"
         exit 1
