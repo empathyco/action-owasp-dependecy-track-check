@@ -114,7 +114,7 @@ python() {
     upload_bom "bom.json" "."
 }
 
-npm() {
+process_npm() {
     echo "[*]  Processing npm BoM"
     curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
     apt-get install -y nodejs
@@ -128,7 +128,7 @@ npm() {
     upload_bom "bom.xml" "."
 }
 
-pnpm() {
+process_pnpm() {
     echo "[*]  Processing pnpm BoM"
     curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
     apt-get install -y nodejs
@@ -155,11 +155,11 @@ case $LANGUAGE in
     ;;
 
 "npm")
-    npm
+    process_npm
     ;;
 
 "pnpm")
-    pnpm
+    process_pnpm
     ;;
 
 *)
