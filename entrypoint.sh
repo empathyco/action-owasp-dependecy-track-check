@@ -114,6 +114,35 @@ python() {
     upload_bom "bom.json" "."
 }
 
+npm() {
+    echo "[*]  Processing npm BoM"
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+    apt-get install -y nodejs
+    npm install
+    npm audit fix --force
+    if [ ! $? = 0 ]; then
+        echo "[-] Error executing npm install. Stopping the action!"
+        exit 1
+    fi
+    npx --yes cyclonedx-bom -o bom.xml
+    upload_bom "bom.xml" "."
+}
+
+pnpm() {
+    echo "[*]  Processing pnpm BoM"
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+    apt-get install -y nodejs
+    npm install -g pnpm
+    pnpm install
+    pnpm audit --fix
+    if [ ! $? = 0 ]; then
+        echo "[-] Error executing pnpm install. Stopping the action!"
+        exit 1
+    fi
+    npx --yes cyclonedx-bom -o bom.xml
+    upload_bom "bom.xml" "."
+}
+
 java
 
 case $LANGUAGE in
@@ -123,6 +152,14 @@ case $LANGUAGE in
 
 "python")
     python
+    ;;
+*)
+"npm")
+    npm
+    ;;
+*)
+"pnpm")
+    pnpm
     ;;
 *)
     echo "[-] Unsupported language: $LANGUAGE"
