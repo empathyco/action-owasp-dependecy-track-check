@@ -17,7 +17,7 @@ inputs:
   language:
     description: 'Programming language'
     required: true
-    default: 'nodejs'
+    default: 'java'
   paths:
     description: 'Array of paths to specific files or directories to be analyzed'
     required: false
