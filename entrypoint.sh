@@ -153,14 +153,15 @@ case $LANGUAGE in
 "python")
     python
     ;;
-*)
+
 "npm")
     npm
     ;;
-*)
+
 "pnpm")
     pnpm
     ;;
+
 *)
     echo "[-] Unsupported language: $LANGUAGE"
     exit 1
