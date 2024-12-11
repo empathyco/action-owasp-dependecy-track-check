@@ -21,13 +21,10 @@ This action requires 3 input variables:
 - **riskscore**: this variable will contain the risk score calculated by OWASP Dependency Track based on the found vulnerabilities. This output can be used to make decision such as notify the developer or use it as the input of the next step of the workflow.
 ## Supported languages
 Currently this action supports the generation of upload of projects devloped in the languages as follows:
-- **Node.js**: define the language variable as `nodejs`. `npm install` will be executed within the container to gather all the dependencies.  
-- **Python**: define the language variable as `python`. It will get the package information from requirements.txt. 
-- **Golang**: define the language variable as `golang`. It will get the package information from go.mod, which is typically present in the repository.
-- **Ruby**: define the language variable as `ruby`. It will get the package information from Gemfile.lock. 
 - **Maven**: define the language variable as `java`. It will get the package information from pom.xml.
-- **NuGet (.NET)**: define the language variable as `dotnet`. It will get the package information from a .sln, .csproj, .vbproj, or packages.config file. 
-- **Php Composer**: define the language variable as `php`. It will get the package information from composer.json.
+- **Python**: define the language variable as `python`. It will get the package information from requirements.txt.
+- **npm**: define the language variable as `npm`. `npm install` will be executed within the container to gather all the dependencies.
+- **pnpm**: define the language variable as `pnpm`. `pnpm install` will be executed within the container to gather all the dependencies.
 
 
 Please note that if any of the files above is not available the action will fail when trying to generate the BoM files. 
